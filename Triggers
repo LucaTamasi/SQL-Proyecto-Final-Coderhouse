@@ -1,0 +1,26 @@
+CREATE TABLE registro_nueva_cancion (
+  id_reg int primary key auto_increment,
+  nombre_cancion VARCHAR(45) NULL,
+  fecha DATETIME NULL DEFAULT CURRENT_TIMESTAMP
+  );
+
+CREATE TABLE baja_clientes (
+  id_baj int primary key auto_increment,
+  nombre_cliente VARCHAR(45) NULL,
+  fecha DATETIME NULL DEFAULT CURRENT_TIMESTAMP
+  );
+
+delimiter //
+CREATE TRIGGER tr_nueva_cancion AFTER INSERT ON cancion
+FOR EACH ROW 
+BEGIN
+    INSERT INTO registro_nueva_cancion (nombre_cancion) VALUES (CONCAT('Se agregó la canción: ', NEW.nombre));
+END//
+delimiter ;
+
+delimiter //
+CREATE TRIGGER tr_baja_usuarios AFTER DELETE ON clientes FOR EACH ROW 
+BEGIN
+    INSERT INTO baja_clientes (nombre_cliente) VALUES (CONCAT('El usuario:', old.nombre,'y mail:', old.mail, 'fue dado de baja'));
+END//
+delimiter ;
