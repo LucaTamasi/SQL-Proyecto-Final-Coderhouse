@@ -1,0 +1,22 @@
+delimiter //
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_cant_gen`(bgenero char(20)) RETURNS int
+    NO SQL
+BEGIN
+    DECLARE resultado int;
+    SELECT count(*) into resultado FROM cancion where genero = bgenero;
+    RETURN resultado;
+END//
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `f_mail_prov`(pmail VARCHAR(30)) RETURNS int
+    NO SQL
+BEGIN
+    DECLARE resultado INT;
+
+    SELECT COUNT(*) INTO resultado
+    FROM clientes
+    WHERE mail LIKE CONCAT('%', pmail, '%');
+
+    RETURN resultado;
+END//
+
