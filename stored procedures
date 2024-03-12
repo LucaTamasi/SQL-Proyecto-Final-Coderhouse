@@ -1,0 +1,16 @@
+delimiter //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_tiemp_mayor_count`(in tiempo time, out numero int)
+begin
+select count(*) into numero
+from cancion
+where duracion > tiempo;
+end//
+delimiter;
+
+delimiter //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_mb_mayor`(in tamaño int)
+begin
+select * 
+from cancion
+where MB > tamaño;
+end//
